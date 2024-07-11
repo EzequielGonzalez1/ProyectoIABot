@@ -948,7 +948,7 @@ body{
   display: flex;
   justify-content: center;
   align-content: center;
-  /*background-image: linear-gradient( to top, #183446 , white);*/
+  background-image: linear-gradient( to top, #183446 , white);
   background-color: #a5afb7;
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -960,22 +960,29 @@ body{
 
 
 .div-item-galeria {
-
-   width: 23vw;
-   height: 45vh;
-   margin-top: 4px;
-   overflow: hidden;
-   /*background-image: linear-gradient( to top, #1D6FA3, white);*/
+    position: relative;
+    width: 23vw;
+    height: 45vh;
+    margin-top: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
-.div-img-galeria{
+.div-item-galeria:hover {
+    transform: scale(1.05);
+}
 
-  background-repeat: no-repeat;
-   border-radius: 35px;
-   width: 100%;
-   height: 100%;
-   transition: transform 0.5s;
-   overflow: hidden;
+.div-img-galeria {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
 }
 
 .div-img-galeria img {
@@ -985,42 +992,106 @@ body{
     transition: transform 0.5s;
 }
 
-.item-galeria:hover{
-   background-image: linear-gradient( to top, #1D6FA3, white);
+.item-galeria:hover .div-img-galeria {
+    background-image: linear-gradient( to top, #1D6FA3, white);
 }
 
-.div-grid-container-item1:hover::after {
-  content:"DUBAI";
-  color: yellow;
-  position:absolute;
-  width: 20vw;
-  height: 5vh;
-  margin-top: 320px;
-  background:rgba(0,0,0,0.6);
-  z-index: 1;
+.mini-mapa {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    display: none; /*Inicialmente oculto*/ 
+    z-index: 1113;
 }
 
-.div-grid-container-item2:hover::after {
-  content:"NEW YORK";
+.mini-mapa p {
+    margin: 5px 0;
+}
+
+
+
+
+
+
+
+/* Estilo para el formulario de compra */
+.formulario-compra {
+  display: none; /* Oculto por defecto */
+  position: absolute;
+  top: 50%; /* Ajusta la posición verticalmente */
+  left: 50%; /* Ajusta la posición horizontalmente */
+  transform: translate(-50%, -50%); /* Centra el formulario */
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 400px;
+  max-height: 90%; /* Ajusta la altura máxima para evitar desbordamiento */
+  overflow: auto; /* Permite desplazamiento si el contenido se desborda */
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+  text-align: center; /* Alineación centrada */
+}
+
+/* Mostrar el formulario al hacer hover sobre el elemento */
+.item-galeria:hover .formulario-compra {
+  display: block;
+}
+
+/* Estilo para el formulario dentro del contenedor */
+.formulario-compra form {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px; /* Ajusta el margen inferior según sea necesario */
+}
+
+.form-group label {
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.form-group button {
+  width: 100%;
+  background-color: #4caf50;
   color: white;
-  position:absolute;
-  width: 20vw;
-  height: 5vh;
-  margin-top: 320px;
-  background:rgba(0,0,0,0.1);
-  z-index: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.div-grid-container-item4:hover::after {
-  content:"PARIS";
-  color: yellow;
-  position:absolute;
-  width: 20vw;
-  height: 5vh;
-  margin-top: 320px;
-  background:rgba(0,0,0,0.6);
-  z-index: 1;
+.form-group button:hover {
+  background-color: #45a049;
 }
+
+/* Estilos adicionales para pantallas pequeñas */
+@media only screen and (max-width: 600px) {
+  .form-group select {
+    font-size: 13px;
+  }
+}
+
+
+
+
 
 
 
@@ -1165,7 +1236,69 @@ body{
 
 
 
+/* Sección Hoteles */
 
+.compra-pasajes {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 40px auto;
+    }
+
+    .compra-pasajes h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+        border-color: #007BFF;
+        outline: none;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+    }
+
+    .error-message {
+        color: red;
+        font-size: 12px;
+        display: none;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007BFF;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
 
 
 
@@ -1483,3 +1616,12 @@ button:hover {
         width: 100%;
     }
 }
+
+.confirmation {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <meta charset="description" content="¡Experiencia y Calidad en cada proyecto!.">
+	<link rel="stylesheet" type="text/css" href="ProyectoIA.css">
+       <link rel="icon" type="" href="">
+	<title>ORBIS TRAVEL</title>
+
+ <style>
+        .compra-pasajes {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .compra-pasajes h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+
+
+    </style>
+
+
+    <script>
+        function initMap() {
+            // Creación del mapa centrado en una posición inicial
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 2,
+                center: { lat: 20, lng: 0 }
+            });
+
+            // Array con la información de los hoteles
+            var hotels = [
+                { name: 'Hotel Dubai', location: { lat: 25.276987, lng: 55.296249 } },
+                { name: 'Hotel New York', location: { lat: 40.712776, lng: -74.005974 } },
+                { name: 'Hotel Paris', location: { lat: 48.856613, lng: 2.352222 } }
+            ];
+
+            // Iteración sobre cada hotel para crear marcadores e infowindows
+            hotels.forEach(function(hotel) {
+                var marker = new google.maps.Marker({
+                    position: hotel.location,
+                    map: map,
+                    title: hotel.name
+                });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: `<h3>${hotel.name}</h3><p>Descripción del hotel.</p>`
+                });
+
+                // Evento click para abrir el infowindow al hacer clic en el marcador
+                marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                });
+            });
+        }
+
+   function validateForm() {
+    let isValid = true;
+
+    // Obtener valores de los campos
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const origen = document.getElementById('origen').value.trim();
+    const fecha = document.getElementById('fecha').value.trim();
+
+    // Validar Nombre
+    if (nombre === "") {
+        document.getElementById('nombre-error').innerText = "El campo Nombre es obligatorio.";
+        document.getElementById('nombre-error').style.display = "block";
+        isValid = false;
+    } else {
+        document.getElementById('nombre-error').style.display = "none";
+    }
+
+    // Validar Correo Electrónico
+    if (email === "") {
+        document.getElementById('email-error').innerText = "El campo Correo Electrónico es obligatorio.";
+        document.getElementById('email-error').style.display = "block";
+        isValid = false;
+    } else {
+        document.getElementById('email-error').style.display = "none";
+    }
+
+    // Validar Origen
+    if (origen === "") {
+        document.getElementById('origen-error').innerText = "El campo Origen es obligatorio.";
+        document.getElementById('origen-error').style.display = "block";
+        isValid = false;
+    } else {
+        document.getElementById('origen-error').style.display = "none";
+    }
+
+    // Validar Fecha
+    if (fecha === "") {
+        document.getElementById('fecha-error').innerText = "El campo Fecha es obligatorio.";
+        document.getElementById('fecha-error').style.display = "block";
+        isValid = false;
+    } else {
+        document.getElementById('fecha-error').style.display = "none";
+    }
+
+
+       if (isValid) {
+    const formData = {
+        nombre: nombre,
+        email: email,
+        origen: origen,
+        fecha: fecha
+    };
+
+    fetch('https://hooks.zapier.com/hooks/catch/19392300/23lpzna/', { // Reemplaza con tu URL de Webhook de Zapier
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+        alert('Compra realizada con éxito!');
+        console.log('Success:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+    return isValid;
+}
+
+// Añadir evento de envío del formulario
+document.getElementById('compra-form').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevenir el envío del formulario
+    if (validateForm()) {
+        this.submit(); // Enviar el formulario si es válido
+    }
+});
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDoumh0MAu0pdD8XLPc7ZY6JYExFgNHr4&callback=initMap" async defer></script>
+
+
+</head>
+
+	<body>
+		<header class="header">
+             
+              <nav class="header-nav">
+
+                     <div class="header-container-logo">
+                            <div class="header-logo"></div>
+                            <div class="header-h1-logo"> </div>     
+                     </div>
+                     
+
+                    <div class="header-lu">
+                         <ul>
+                            <li class="item-li header-lu-li1" > <a href="#345">Contactos</a> </li>
+                            <li class="item-li header-lu-li2"><a href="#346">Galeria</a></li>
+                            <li class="item-li header-lu-li3"><a href="#347">Servicios</a></li> 
+                            <li class="item-li header-lu-li4"><a href="#348">Nuestra Empresa</a></li> 
+                         </ul>
+                    </div>  
+               </nav>
+       </header>
+
+<section class="header-container">  
+
+	 <section class="header-content">
+                                   <div class="header-letras">
+                                          <h1 class="h1-header">ORBIS TRAVEL</h1>
+                                          <div class="p-header-container"><p class="p-header">Nuestra mision es crear experiencias de viajes inovildables en las tres ciudades mas visitadas del planeta.</p></div>
+                                   </div>                                                                                                         
+                                              
+                                   <div class="contacto-header-div">  
+                                          <img class="contacto-header-img" src="whatsapp.png" width="8%" ></img>
+                                          <p class="contacto-header-div-p">+54 171233470</p>
+                                          
+                                          <img class="contacto-header-img" src="gmail.png" width="8%" ></img>
+                                          <p class="contacto-header-div-p">OrbisTravel@gmail.com</p>
+                                    </div>
+                     </section>        
+       </section>
+
+		<article id="348" class="quien-somos-article">
+              <section class="quien-somos-section"> 
+
+                     <div  class="quien-somos-div-h1">
+                          <h1>NUESTRA EMPRESA</h1> 
+                     </div>
+
+                     <div class="quien-somos-div-cuadro-video">
+                            <div class="quien-somos-div-video">
+                                   <video src="quienes-somos.mp4" width="100%" height="100%"  autoplay muted loop></video>                                                                                    
+                            </div>
+
+                     <div class="quien-somos-div-cuadro-texto">      
+                         <h2 class="quien-somos-h2">ORBIS TRAVEL</h2> <p class="quien-somos-p">¿Sueñas con recorrer las calles de las ciudades más emblemáticas del planeta?
+
+En ORBIS TRAVEL, convertimos tus sueños en realidad. Somos una agencia de viajes especializada en ofrecer experiencias únicas e inolvidables a los destinos más visitados del mundo.
+¿Por qué elegirnos?
+Contamos con un equipo de profesionales apasionados por los viajes, con años de experiencia en la creación de itinerarios personalizados y la selección de los mejores proveedores de servicios turísticos.
+Nos comprometemos a ofrecer un servicio de calidad excepcional, garantizando tu satisfacción en cada paso del viaje.</p>  
+                     </div>
+              </section>
+       </article>
+
+
+       <article id="347" class="nuestros-servicios-article">
+              <section class="nuestros-servicios-section">
+                     <div class="nuestros-servicios-div-principal">
+
+                            <div class="nuestros-servicios-div-h1">
+                                   <h1>NUESTROS SERVICIOS</h1>
+                            </div>
+                            
+
+
+
+                            <div class="nuestros-servicios-div-fotos-grid">
+
+                                   <div class="item-nuestros-servicios nuestros-servicios-div-fotos1">
+                                        <img class="gif-nuestros-servcios nuestros-servicios-div-fotos2-gif" src="top100-gifts-animados-viaje-11.gif"></img>
+
+                                        <h2 class="servicio-texto-h nuestros-servicios-h2">ASESORIA PERSONALIZADA</h2> <p class="servicio-texto-p nuestros-servicios-p">Poseemos el conocimiento y la experiencia para guiarte en la elección del destino perfecto para tus vacaciones. consideramos aspectos como tus intereses, presupuesto, estilo de viaje y época del año, para que encuentres un lugar que se adapte a la perfección a lo que buscas.</p>                                                                                    
+                                   </div>
+
+                                   <div class="item-nuestros-servicios nuestros-servicios-div-fotos2">
+                                          <img class="gif-nuestros-servcios nuestros-servicios-div-fotos2-gif" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGd0ZXV5YW1hdXk3anBoMXJmOXgyN3JqN3J1YmFhbzkyaGduNGdhYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KGwTZd1qr8hsSKsrFI/giphy.webp"></img>
+
+                                          <h3 class=" servicio-texto-h nuestros-servicios-h3">RESERVAS Y GESTION DE ITINERARIOS</h2> <p class="servicio-texto-p nuestros-servicios-p2">En nuestra empresa, nos comprometemos en reservar todos los aspectos de tu viaje, desde vuelos y alojamiento, hasta traslados, excursiones y actividades</p> 
+                                   </div>
+                                   
+                                   <div class="item-nuestros-servicios nuestros-servicios-div-fotos3">
+                                           <img class="gif-nuestros-servcios nuestros-servicios-div-fotos3-gif" src="top100-gifts-animados-viaje-paisajes-4.gif"></img> 
+
+                                           <h4 class="servicio-texto-h nuestros-servicios-h4">ASISTENCIA DURANTE EL VIAJE</h2> <p class="servicio-texto-p nuestros-servicios-p3">En caso de que tengas algún problema durante tu viaje, estaremos ahí para ayudarte. Te proporcionamos asistencia con imprevistos como cancelaciones de vuelos, pérdida de equipaje o problemas médicos.</p>
+                                   </div>
+                            </div>
+                     </div>
+              </section>
+       </article>
+
+
+       <section id="346" class="section-grid">
+
+    <div class="div-fotos-h1">
+        <h1>RESERVA DE HOTELES</h1>
+    </div>
+
+    <div class="div-grid-container">
+
+        <div class="item-galeria div-grid-container-item1">
+            <div class="div-item-galeria div-item-galeria-1">
+                <img class="div-img-galeria div-img-galeria-1" src="Captura de pantalla (958).png">
+                <!-- Mini mapa interactivo -->
+                <div class="mini-mapa">
+                    <div id="mapa-1" class="mapa"></div>
+                    <p>Descripción del hotel o ubicación</p>
+                </div>
+                <!-- Formulario de compra -->
+                <div class="formulario-compra">
+                    <h2>Formulario de Compra</h2>
+                    <form id="formulario" method="post" action="http://127.0.0.1:5000/submit_form">
+
+
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="origen">Origen</label>
+                            <select id="origen" name="origen">
+                                <option value="opcion1">Opción 1</option>
+                                <option value="opcion2">Opción 2</option>
+                                <!-- Agrega más opciones según sea necesario -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha">Fecha de Viaje</label>
+                            <input type="date" id="fecha" name="fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tarjeta">Datos de Tarjeta de Crédito</label>
+                            <input type="text" id="tarjeta" name="tarjeta" placeholder="Número de tarjeta" required>
+                            <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+                            <input type="text" id="titular" name="titular" placeholder="Titular de la tarjeta" required>
+                            <input type="text" id="caducidad" name="caducidad" placeholder="Fecha de caducidad" required>
+                        </div>
+                        <button type="submit">Comprar Ahora</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-galeria div-grid-container-item2">
+            <div class="div-item-galeria div-item-galeria-2">
+                <img class="div-img-galeria div-img-galeria-2" src="5d703c7a8a10b.jpeg">
+                <!-- Mini mapa interactivo -->
+                <div class="mini-mapa">
+                    <div id="mapa-2" class="mapa"></div>
+                    <p>Descripción del hotel o ubicación</p>
+                </div>
+                <!-- Formulario de compra -->
+                <div class="formulario-compra">
+                    <h2>Formulario de Compra</h2>
+                    <form id="formulario">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="origen">Origen</label>
+                            <select id="origen" name="origen">
+                                <option value="opcion1">Opción 1</option>
+                                <option value="opcion2">Opción 2</option>
+                                <!-- Agrega más opciones según sea necesario -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha">Fecha de Viaje</label>
+                            <input type="date" id="fecha" name="fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tarjeta">Datos de Tarjeta de Crédito</label>
+                            <input type="text" id="tarjeta" name="tarjeta" placeholder="Número de tarjeta" required>
+                            <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+                            <input type="text" id="titular" name="titular" placeholder="Titular de la tarjeta" required>
+                            <input type="text" id="caducidad" name="caducidad" placeholder="Fecha de caducidad" required>
+                        </div>
+                        <button type="submit">Comprar Ahora</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-galeria div-grid-container-item3">
+            <div class="div-item-galeria div-item-galeria-3">
+                <video src="70796-538877060_small.mp4" width="100%" height="100%" autoplay muted loop></video>
+                <!-- Mini mapa interactivo -->
+                <div class="mini-mapa">
+                    <div id="mapa-3" class="mapa"></div>
+                    <p>Descripción del hotel o ubicación</p>
+                </div>
+                <!-- Formulario de compra -->
+                <div class="formulario-compra">
+                    <h2>Formulario de Compra</h2>
+                    <form id="formulario-3">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre-3" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="origen">Origen</label>
+                            <select id="origen" name="origen">
+                                <option value="opcion1">Opción 1</option>
+                                <option value="opcion2">Opción 2</option>
+                                <!-- Agrega más opciones según sea necesario -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha">Fecha de Viaje</label>
+                            <input type="date" id="fecha" name="fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tarjeta">Datos de Tarjeta de Crédito</label>
+                            <input type="text" id="tarjeta" name="tarjeta" placeholder="Número de tarjeta" required>
+                            <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+                            <input type="text" id="titular" name="titular" placeholder="Titular de la tarjeta" required>
+                            <input type="text" id="caducidad" name="caducidad" placeholder="Fecha de caducidad" required>
+                        </div>
+                        <button type="submit">Comprar Ahora</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+<div id="map" style="height: 400px;"></div>
+
+
+
+
+<div class="video-background">
+        <video autoplay muted loop>
+            <source src="51296-464062973_medium.mp4" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video.
+        </video>
+    </div>
+    <div class="overlay"></div>
+    <div class="visita-div-h1">
+        <h1>Utiliza nuestro chatbot</h1>
+    </div>
+    <div class="contenido">
+        <div class="ciudades">
+            <div class="ciudad" id="dubai">
+                <div class="ciudad-overlay">
+                    <h2>Dubai</h2>
+                </div>
+            </div>
+            <div class="ciudad" id="new-york">
+                <div class="ciudad-overlay">
+                    <h2>New York</h2>
+                </div>
+            </div>
+            <div class="ciudad" id="paris">
+                <div class="ciudad-overlay">
+                    <h2>Paris</h2>
+                </div>
+            </div>
+        </div>
+        <div class="mensaje">
+            <p>Utiliza nuestro chatbot para descubrir curiosidades y datos sobre estas ciudades.</p>
+        </div>
+    </div>
+
+
+
+       <footer id="345" class="footer">
+              
+              <div class="div-h1-footer">
+                    <h1>Contactos</h1> 
+                 </div>
+
+             <div class="div-container-contact-principal">
+
+                 <div class="div-container-contact">
+
+                     <div class="div-container-contact-1">
+
+                            <div class="item-div-contact div-contact-1">
+
+                                 <div class="item-icon-p-footer">
+                                          <img class="item-icon-footer div-contact-1-icon-email" src="gmail.png" width="9%" height="45%"></img>
+
+                                          <p class="item-p-footer div-contact-1-email-p">OrbisTravel@gmail.com</p>
+                                   </div>
+                                 
+                                 <div class="item-icon-p-footer">
+                                   <img class="item-icon-footer div-contact-1-icon-face" src="facebook.png" width="9%" height="45%"></img>
+                                           <p class="item-p-footer div-contact-1-face-p">Orbis
+                                          <a href="http://www.facebook.com/profile.php?id=100090062212680&mibextid=ZbWKwL"></a> </p>
+
+                                 </div>
+
+                                 
+                                 <div class="item-icon-p-footer">
+                                   <img class="item-icon-footer div-contact-1-icon-linkedin" src="linkedin.png" width="9%" height="45%"></img>
+
+                                          <p class="item-p-footer div-contact-1-linkedin-p">Orbis-link</p>
+                                  </div>        
+                            </div>
+                     </div>
+
+                     <div class="div-container-contact-2">
+
+                            <div class="item-div-contact div-contact-2">
+
+                                  <div class="item-icon-p-footer">
+                                   <img class="item-icon-footer div-contact-2-icon-what" src="whatsapp.png" width="9%" height="45%" ></img>
+
+                                          <p class="item-p-footer div-contact-2-what-p">+54 171233470</p>
+                                   </div>       
+ 
+                            <div class="item-icon-p-footer">        
+                                    <img class="item-icon-footer div-contact-1-icon-insta" src="instagram.png" width="9%" height="45%"></img>
+
+                                          <p class="item-p-footer div-contact-1-insta-p"></a>OrbisTravel </p>
+                                   </div>       
+                            </div>
+                     </div>
+              </div>
+              </div> 
+       </footer>
+      
+
+      <div class="derechos"> <h1 class="derechos-h1"> todos los derechos reservados.</h1> </div>
+
+       <script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
+      <script src="https://mediafiles.botpress.cloud/d148e29d-85cf-4e56-92b2-37b8e67eb687/webchat/v2/config.js"></script>
+
+</body>
+</html>
