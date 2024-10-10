@@ -31,7 +31,7 @@ This project presents a professional and attractive website for a tourism compan
 - OUR COMPANY” section describing the history, mission and values of the company.
 - OUR SERVICES” section detailing the services offered, with images and concise descriptions.
 - Integration with social networks for greater visibility.
--Chatbot support to provide information, schedule personalized assistance and more. 
+-Chatbot support to provide information, schedule personalized assistance and notifications email. 
 
 
 ###  WEBSITE
@@ -64,6 +64,18 @@ This project presents a professional and attractive website for a tourism compan
 ---
 
 # RESPONSIVE-GRID
+
+<div id="header-div" align="center">
+ <img src="https://github.com/EzequielGonzalez1/ProyectoIABot/blob/main/Captura%20de%20pantalla%20(1326).png" width="400" height="600" />
+</div>
+
+# BOTPRESS
+
+<div id="header-div" align="center">
+ <img src="https://github.com/EzequielGonzalez1/ProyectoIABot/blob/main/Captura%20de%20pantalla%20(1326).png" width="400" height="600" />
+</div>
+
+# CHATBOT
 
 <div id="header-div" align="center">
  <img src="https://github.com/EzequielGonzalez1/ProyectoIABot/blob/main/Captura%20de%20pantalla%20(1326).png" width="400" height="600" />
