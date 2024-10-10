@@ -58,7 +58,7 @@ This project presents a professional and attractive website for a construction c
 # BANNER
 
 <div id="header-div" align="center">
- <img src="https://github.com/EzequielGonzalez1/Landing-Page-with-HTML5-and-CSS3-/blob/main/Captura%20de%20pantalla.png" width="700" height="350" />
+ <img src="https://github.com/EzequielGonzalez1/ProyectoIABot/blob/main/Captura%20de%20pantalla%20(1324).png" width="700" height="350" />
 </div>
 
 ---
