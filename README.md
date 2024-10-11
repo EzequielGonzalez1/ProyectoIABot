@@ -69,11 +69,6 @@ This project presents a professional and attractive website for a tourism compan
  <img src="https://github.com/EzequielGonzalez1/ProyectoIABot/blob/main/Captura%20de%20pantalla%20(1326).png" width="400" height="600" />
 </div>
 
-# BOTPRESS
-
-<div id="header-div" align="center">
- <img src="https://github.com/EzequielGonzalez1/ProyectoIABot/blob/main/Captura%20de%20pantalla%20(1329).png" width="800" height="600" />
-</div>
 
 # CHATBOT
 
