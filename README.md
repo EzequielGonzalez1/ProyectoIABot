@@ -20,7 +20,7 @@ This project presents a professional and attractive website for a tourism compan
 
 - HTML5
 - CSS3
--BOTPRESS
+- Botpress
 
 ### Characteristics:
 
@@ -28,8 +28,8 @@ This project presents a professional and attractive website for a tourism compan
 - Intuitive and easy to navigate user interface.
 - Banner with high quality images or videos.
 - Main navigation menu with well-defined sections.
-- OUR COMPANY” section describing the history, mission and values of the company.
-- OUR SERVICES” section detailing the services offered, with images and concise descriptions.
+- "OUR COMPANY” section describing the history, mission and values of the company.
+- "OUR SERVICES” section detailing the services offered, with images and concise descriptions.
 - Integration with social networks for greater visibility.
 -Chatbot support to provide information, schedule personalized assistance and notifications email. 
 
