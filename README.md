@@ -78,5 +78,5 @@ This project presents a professional and attractive website for a tourism compan
 # CHATBOT
 
 <div id="header-div" align="center">
- <img src="https://github.com/EzequielGonzalez1/ProyectoIABot/blob/main/Captura%20de%20pantalla%20(1328).png" width="500" height="600" />
+ <img src="https://github.com/EzequielGonzalez1/ProyectoIABot/blob/main/Captura%20de%20pantalla%20(1328).png" width="500" height="700" />
 </div>
