@@ -36,7 +36,7 @@ This project presents a professional and attractive website for a tourism compan
 
 ###  WEBSITE
 
-<a href="https://ezequielgonzalez1.github.io/ProyectoIABot/"></a>
+<a href="https://ezequielgonzalez1.github.io/"></a>
 
   
 # BANNER
